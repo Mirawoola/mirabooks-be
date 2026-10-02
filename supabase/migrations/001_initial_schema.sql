@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS addresses (
 -- Carts
 CREATE TABLE IF NOT EXISTS carts (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+    user_id UUID UNIQUE REFERENCES users(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -91,7 +91,8 @@ CREATE TABLE IF NOT EXISTS cart_items (
     cart_id UUID REFERENCES carts(id) ON DELETE CASCADE,
     book_id UUID REFERENCES books(id),
     quantity INT NOT NULL DEFAULT 1,
-    unit_price DECIMAL(10,2) NOT NULL
+    unit_price DECIMAL(10,2) NOT NULL,
+    UNIQUE(cart_id, book_id)
 );
 
 -- Orders
