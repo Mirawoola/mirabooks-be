@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+            color: #333333;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .header {
+            background-color: #1a5f7a;
+            color: #ffffff;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin: 10px 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .greeting {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #1a5f7a;
+        }
+
+        .order-summary-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .order-number {
+            font-size: 14px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .order-id {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0f172a;
+            margin: 0;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+
+        .items-table th {
+            text-align: left;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .items-table td {
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .item-name {
+            font-weight: 500;
+            color: #0f172a;
+        }
+
+        .item-qty {
+            color: #64748b;
+            text-align: center;
+        }
+
+        .item-price {
+            font-weight: 500;
+            color: #0f172a;
+            text-align: right;
+        }
+
+        .totals-container {
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+        }
+
+        .totals-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 15px;
+            color: #475569;
+        }
+
+        .totals-row.grand-total {
+            font-weight: bold;
+            font-size: 18px;
+            color: #1a5f7a;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 15px;
+            margin-top: 5px;
+        }
+
+        .footer {
+            background-color: #f1f5f9;
+            padding: 30px;
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: #1a5f7a;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Mirabooks</h1>
+            <p>Your journey begins here.</p>
+        </div>
+        <div class="content">
+            <div class="greeting">Hello {{customer_name}},</div>
+            <p>Thank you for shopping with Mirabooks! We've received your order and are getting it ready for shipment.
+                Below are the details of your purchase.</p>
+
+            <div class="order-summary-card">
+                <div class="order-number">Order Reference</div>
+                <h2 class="order-id">#{{order_number}}</h2>
+            </div>
+
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th style="text-align: center;">Qty</th>
+                        <th style="text-align: right;">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each items}}
+                    <tr>
+                        <td class="item-name">{{title}}</td>
+                        <td class="item-qty">{{quantity}}</td>
+                        <td class="item-price">₦{{unit_price}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+            <table class="totals-container" style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 8px 0; color: #475569; text-align: right; padding-right: 20px;">Subtotal</td>
+                    <td style="padding: 8px 0; color: #475569; text-align: right; width: 100px;">₦{{subtotal}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px 0; color: #475569; text-align: right; padding-right: 20px;">Shipping</td>
+                    <td style="padding: 8px 0; color: #475569; text-align: right;">₦{{shipping_cost}}</td>
+                </tr>
+                <tr>
+                    <td
+                        style="padding: 15px 0 8px 0; color: #1a5f7a; text-align: right; font-weight: bold; font-size: 18px; border-top: 2px solid #e2e8f0; padding-right: 20px;">
+                        Total</td>
+                    <td
+                        style="padding: 15px 0 8px 0; color: #1a5f7a; text-align: right; font-weight: bold; font-size: 18px; border-top: 2px solid #e2e8f0;">
+                        ₦{{total}}</td>
+                </tr>
+            </table>
+
+            <p style="margin-top: 40px; font-size: 15px; color: #475569; line-height: 1.6;">
+                We hope you enjoy your new books! If you have any questions or need to make changes to your order,
+                simply reply to this email or contact our support team.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Mirabooks. All rights reserved.</p>
+            <p>123 Bookworm Lane, Reading City, 10001</p>
+            <p><a href="https://mirabooks.com">Visit our website</a> | <a href="mailto:support@mirabooks.com">Contact
+                    Support</a></p>
+        </div>
+    </div>
+</body>
+
+</html>
