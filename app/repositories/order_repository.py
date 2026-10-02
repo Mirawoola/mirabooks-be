@@ -6,9 +6,7 @@ import random
 import string
 from uuid import UUID
 
-from supabase import Client
-
-from app.database import get_supabase
+from app.database import SupabaseClient, get_supabase
 
 
 def _generate_order_number() -> str:
@@ -27,7 +25,7 @@ def _generate_order_number() -> str:
 class OrderRepository:
     """Handles all database operations for orders."""
 
-    def __init__(self, db: Client | None = None):
+    def __init__(self, db: SupabaseClient | None = None):
         self.db = db or get_supabase()
 
     def create_order(self, order_data: dict) -> dict:

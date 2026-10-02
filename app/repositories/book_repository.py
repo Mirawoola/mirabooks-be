@@ -11,15 +11,13 @@ to find, fix, and test.
 
 from uuid import UUID
 
-from supabase import Client
-
-from app.database import get_supabase
+from app.database import SupabaseClient, get_supabase
 
 
 class BookRepository:
     """Handles all database operations for books."""
 
-    def __init__(self, db: Client | None = None):
+    def __init__(self, db: SupabaseClient | None = None):
         self.db = db or get_supabase()
 
     def get_books(

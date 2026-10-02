@@ -4,15 +4,13 @@ User Repository — Database access for users and addresses.
 
 from uuid import UUID
 
-from supabase import Client
-
-from app.database import get_supabase
+from app.database import SupabaseClient, get_supabase
 
 
 class UserRepository:
     """Handles all database operations for users."""
 
-    def __init__(self, db: Client | None = None):
+    def __init__(self, db: SupabaseClient | None = None):
         self.db = db or get_supabase()
 
     def get_user_by_email(self, email: str) -> dict | None:

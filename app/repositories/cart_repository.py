@@ -8,15 +8,13 @@ book again, we update the quantity instead of creating a duplicate row.
 
 from uuid import UUID
 
-from supabase import Client
-
-from app.database import get_supabase
+from app.database import SupabaseClient, get_supabase
 
 
 class CartRepository:
     """Handles all database operations for carts and cart items."""
 
-    def __init__(self, db: Client | None = None):
+    def __init__(self, db: SupabaseClient | None = None):
         self.db = db or get_supabase()
 
     def get_or_create_cart(self, user_id: UUID) -> dict:
