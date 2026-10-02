@@ -56,6 +56,7 @@ app.add_middleware(
     allow_origins=[
         settings.frontend_url,  # React dev server or production URL
         "https://mirabooks-be.onrender.com",
+        "https://gentle-raindrop-968947.netlify.app",
         "http://localhost:5173",
         "http://localhost:5174",
         "http://localhost:5175",
