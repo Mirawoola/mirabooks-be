@@ -1,0 +1,32 @@
+# Virtual environments
+.venv
+venv/
+env/
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+
+# Environment files
+.env
+.env.*
+
+# Test / utility scripts
+test_*.py
+create_schema.py
+seed_data.py
+
+# Supabase migrations (not needed at runtime, prevents namespace collision)
+supabase/
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Misc
+__pycache__/
+*.pyc
