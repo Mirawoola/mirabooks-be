@@ -162,7 +162,7 @@ class BookRepository:
 class CategoryRepository:
     """Handles all database operations for categories."""
 
-    def __init__(self, db: Client | None = None):
+    def __init__(self, db: SupabaseClient | None = None):
         self.db = db or get_supabase()
 
     def get_all_categories(self) -> list[dict]:
