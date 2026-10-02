@@ -100,6 +100,13 @@ class QueryBuilder:
         self._headers["Prefer"] = "return=representation"
         return self
 
+    def upsert(self, data, on_conflict: str = ""):
+        self._method = "POST"
+        self._body = data if isinstance(data, list) else [data]
+        self._headers["Prefer"] = "return=representation, resolution=merge-duplicates"
+        self._on_conflict = on_conflict
+        return self
+
     def update(self, data):
         self._method = "PATCH"
         self._body = data
@@ -136,6 +143,10 @@ class QueryBuilder:
         # Limit
         if self._limit_val is not None:
             params["limit"] = str(self._limit_val)
+
+        # On conflict (for upsert)
+        if hasattr(self, '_on_conflict') and self._on_conflict:
+            params["on_conflict"] = self._on_conflict
 
         # Range header
         headers = self._headers.copy()
