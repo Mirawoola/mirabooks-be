@@ -1,14 +1,11 @@
 """Create tables in Supabase via direct PostgreSQL connection."""
 import psycopg2
 
-# Use IPv6 address directly since DNS resolves to IPv6 only
-# Or try the pooler endpoint which often has IPv4
+from app.config import settings
+
+# Use DB URL from settings
 DB_URLS = [
-    "postgresql://postgres:Olamikusibe23.@db.aymbzilbsmwucmdhlfey.supabase.co:5432/postgres",
-    "postgresql://postgres.aymbzilbsmwucmdhlfey:Olamikusibe23.@aws-0-eu-central-1.pooler.supabase.com:6543/postgres",
-    "postgresql://postgres.aymbzilbsmwucmdhlfey:Olamikusibe23.@aws-0-eu-west-1.pooler.supabase.com:6543/postgres",
-    "postgresql://postgres.aymbzilbsmwucmdhlfey:Olamikusibe23.@aws-0-us-east-1.pooler.supabase.com:6543/postgres",
-    "postgresql://postgres.aymbzilbsmwucmdhlfey:Olamikusibe23.@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres",
+    settings.database_url
 ]
 
 SCHEMA_SQL = """
